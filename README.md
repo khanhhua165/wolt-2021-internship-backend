@@ -24,7 +24,7 @@ npm start
 
 ## Usage
 
-After starting the server. We can fetch the data from http://localhost:3000/discovery with the neccessary param strings (lat and lon).
+After starting the server, fetch the data from http://localhost:3000/discovery with the neccessary param strings (lat and lon).
 
 For example: http://localhost:3000/discovery?lat=60.1709&lon=24.941 .
 
