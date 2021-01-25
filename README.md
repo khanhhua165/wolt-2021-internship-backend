@@ -28,4 +28,4 @@ After starting the server. We can fetch the data from http://localhost:3000/disc
 
 For example: http://localhost:3000/discovery?lat=60.1709&lon=24.941 .
 
-Other routes or wrong parameters will receive back a message with the coressponding error.
+Other routes or wrong parameters will receive back a message with the corresponding error.

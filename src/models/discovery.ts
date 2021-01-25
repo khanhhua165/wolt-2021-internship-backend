@@ -69,7 +69,6 @@ export default class Discovery {
     return restaurants.filter((restaurant) => {
       const date = dayjs(restaurant.launch_date, dayFormat);
       const day4MonthsAgo = dayjs().subtract(4, "month");
-      console.log(day4MonthsAgo.toISOString());
       return date.isSameOrAfter(day4MonthsAgo);
     });
   }
@@ -107,9 +106,17 @@ export default class Discovery {
     const maxRes = 10;
     const resultRes = [...onlineRes];
     if (resultRes.length < maxRes) {
-      if (offlineRes.length > 0) {
+      if (offlineRes.length >= maxRes - resultRes.length) {
         for (let i = 0; i < maxRes - resultRes.length; i++) {
           resultRes.push(offlineRes[i]);
+        }
+      }
+      if (
+        offlineRes.length > 0 &&
+        offlineRes.length < maxRes - resultRes.length
+      ) {
+        for (let res of offlineRes) {
+          resultRes.push(res);
         }
       }
     }
