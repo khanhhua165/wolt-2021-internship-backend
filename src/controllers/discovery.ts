@@ -6,8 +6,10 @@ type Section = {
   title: string;
   restaurants: Restaurant[];
 };
+
 const getDiscovery = (req: Request, res: Response, next: NextFunction) => {
   const sectionArray: Section[] = [];
+
   try {
     if (!req.query.lat || !req.query.lon) {
       const error = new Error(
@@ -23,7 +25,10 @@ const getDiscovery = (req: Request, res: Response, next: NextFunction) => {
       error.statusCode = 400;
       throw error;
     }
+
+    // * Initialize Discovery object if the parameters are valid
     const discovery = new Discovery(lat, lon);
+
     const popularRestaurants = discovery.populateRestaurantList(
       discovery.sortPopularRestaurants
     );
@@ -34,6 +39,7 @@ const getDiscovery = (req: Request, res: Response, next: NextFunction) => {
     const nearbyRestaurants = discovery.populateRestaurantList(
       discovery.sortNearestRestaurants
     );
+
     if (popularRestaurants.length > 0) {
       const popularRes = {
         title: "Popular Restaurants",
@@ -41,10 +47,12 @@ const getDiscovery = (req: Request, res: Response, next: NextFunction) => {
       };
       sectionArray.push(popularRes);
     }
+
     if (newRestaurants.length > 0) {
       const newRes = { title: "New Restaurants", restaurants: newRestaurants };
       sectionArray.push(newRes);
     }
+
     if (nearbyRestaurants.length > 0) {
       const nearRes = {
         title: "Nearby Restaurants",
@@ -52,6 +60,7 @@ const getDiscovery = (req: Request, res: Response, next: NextFunction) => {
       };
       sectionArray.push(nearRes);
     }
+
     res.status(200).json({ sections: sectionArray });
   } catch (e) {
     next(e);

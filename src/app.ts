@@ -16,6 +16,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use(discoveryRoute);
 
+// * Error handler
 app.use((error: NewError, req: Request, res: Response, next: NextFunction) => {
   if (!error.statusCode) {
     error.statusCode = 500;
@@ -25,6 +26,7 @@ app.use((error: NewError, req: Request, res: Response, next: NextFunction) => {
   res.status(statusCode).json({ message });
 });
 
+// * 404 not found
 app.use(errorController);
 
 app.listen(3000, () => {

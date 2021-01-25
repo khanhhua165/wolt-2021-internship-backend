@@ -86,10 +86,12 @@ export default class Discovery {
   // * Populate restaurants list, max 10 restaurants
   populateRestaurantList(
     sortType: (restaurants: Restaurant[]) => Restaurant[],
-    isNewRes: boolean = false
+    isNewRes: boolean = false // * If true, use the no older than 4 months restaurants
   ) {
     let onlineRes: Restaurant[];
     let offlineRes: Restaurant[];
+    const maxRes = 10;
+
     if (isNewRes) {
       onlineRes = this.filterNoOlderThan4Month(
         this.sortedOnlineRestaurantByDistance()
@@ -103,8 +105,10 @@ export default class Discovery {
       onlineRes = sortType(this.sortedOnlineRestaurantByDistance());
       offlineRes = sortType(this.sortedOfflineRestaurantByDistance());
     }
-    const maxRes = 10;
+
     const resultRes = [...onlineRes];
+
+    // * populate the result with with closed restaurant if maximum restaurant has not reached.
     if (resultRes.length < maxRes) {
       if (offlineRes.length >= maxRes - resultRes.length) {
         for (let i = 0; i < maxRes - resultRes.length; i++) {
@@ -120,6 +124,8 @@ export default class Discovery {
         }
       }
     }
+
+    // * Cut off excessive results
     if (resultRes.length > 10) {
       resultRes.splice(maxRes, resultRes.length - maxRes);
     }
