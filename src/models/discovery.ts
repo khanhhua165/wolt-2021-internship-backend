@@ -86,7 +86,8 @@ export default class Discovery {
   // * Populate restaurants list, max 10 restaurants
   populateRestaurantList(
     sortType: (restaurants: Restaurant[]) => Restaurant[],
-    isNewRes: boolean = false // * If true, use the no older than 4 months restaurants
+    // * If true, use the no older than 4 months restaurants
+    isNewRes: boolean = false
   ) {
     let onlineRes: Restaurant[];
     let offlineRes: Restaurant[];
